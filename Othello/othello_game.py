@@ -80,11 +80,16 @@ class OthelloGUI:
         if self.current_player == 'B':  # If it's the AI's turn (Black)
             self.ai_move()  # Call the method for AI to move immediately
 
+
+
     def create_game_interface(self):
         # Method to create the game interface
+        # Set background color
+        self.root.configure(background='#097969')
+
         # Create canvas for the board
-        self.canvas = tk.Canvas(self.root, width=BOARD_SIZE * SQUARE_SIZE, height=BOARD_SIZE * SQUARE_SIZE)
-        # Create a canvas widget with the specified width and height
+        self.canvas = tk.Canvas(self.root, width=BOARD_SIZE * SQUARE_SIZE, height=BOARD_SIZE * SQUARE_SIZE, bg='#097969')
+        # Create a canvas widget with the specified width, height, and background color
         self.canvas.pack()  # Pack the canvas into the root window
 
         # Initialize game state and starting discs
@@ -96,15 +101,15 @@ class OthelloGUI:
         self.board[4][4] = 'W'  # Place initial white discs
 
         # Initialize count labels
-        self.black_count_label = tk.Label(self.root, text="Black: 2", font=("Helvetica", 14))
+        self.black_count_label = tk.Label(self.root, text="Black: 2", font=("Helvetica", 14), bg='#097969')
         # Create a label to display the count of black discs
         self.black_count_label.pack()  # Pack the label for black count into the root window
-        self.white_count_label = tk.Label(self.root, text="White: 2", font=("Helvetica", 14))
+        self.white_count_label = tk.Label(self.root, text="White: 2", font=("Helvetica", 14), bg='#097969')
         # Create a label to display the count of white discs
         self.white_count_label.pack()  # Pack the label for white count into the root window
 
         # Initialize player turn label
-        self.turn_label = tk.Label(self.root, text="", font=("Helvetica", 14))
+        self.turn_label = tk.Label(self.root, text="", font=("Helvetica", 14), bg='#097969')
         # Create a label to display the current player's turn
         self.turn_label.pack()  # Pack the turn label into the root window
 
@@ -209,7 +214,8 @@ class OthelloGUI:
             return False  # The move is invalid
 
         # Check in all four directions for valid moves
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # Define directions: right, left, down, up
+        # Define directions: up, down, right, left
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
         for dr, dc in directions:  # Loop through each direction
             r, c = row + dr, col + dc  # Calculate the next cell in the direction
             if 0 <= r < BOARD_SIZE and 0 <= c < BOARD_SIZE and board[r][c] != self.current_player and board[r][
@@ -364,8 +370,8 @@ class OthelloGUI:
         else:
             winner_text = "Draw!"
 
-        # Display the winner text
-        winner_label = tk.Label(self.root, text=winner_text, font=("Helvetica", 16))
+        # Display the winner text with background matching the canvas/board
+        winner_label = tk.Label(self.root, text=winner_text, font=("Helvetica", 16), bg='#097969')
         winner_label.pack()
 
 # Initialize the Tkinter root window and start the game
